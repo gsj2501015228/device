@@ -40,16 +40,18 @@ class DeviceVideoController extends AdminController
             $grid->information('相关信息');
             $grid->created_at('上传日期');
             //$grid->updated_at('更新日期');
+            $grid->disableCreateButton();
             $grid->filter(function ($filter) {
                 // 展开过滤器
-                $filter->expand();
+                $filter->panel();
+                //$filter->expand();
                 // 在这里添加字段过滤器
                 $filter->equal('device_id', '设备ID');
                 $filter->between('created_at', '上传日期')->datetime();
 
             });
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->disableDelete();
+                //$actions->disableDelete();
                 $actions->disableEdit();
                 $actions->disableQuickEdit();
                 $actions->disableView();

@@ -51,7 +51,8 @@ class DeviceController extends AdminController
             //$grid->showFilterButton();
             $grid->filter(function($filter){
                 // 展开过滤器
-                $filter->expand();
+                $filter->panel();
+                //$filter->expand();
                 // 在这里添加字段过滤器
                 $filter->equal('id', '设备ID');
                 $filter->like('state', '状态');
@@ -60,6 +61,7 @@ class DeviceController extends AdminController
 
             });
             $grid->rowSelector()->background(Admin::color()->dark50());
+            $grid->disableCreateButton();
             //行操作
             $grid->actions(new Action\ViewLog());
             $grid->actions(new Action\ViewVideo());

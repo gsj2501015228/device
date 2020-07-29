@@ -27,6 +27,7 @@ class DeviceLogController extends AdminController
     public function grid()
     {
         return Grid::make(new DeviceLog(), function (Grid $grid) {
+            $grid->export();
             // 第一列显示id字段，并将这一列设置为可排序列
             //$grid->id->code()->sortable();
             $grid->id('ID')->sortable()->setAttributes(['style' => 'font-size:10px']);
@@ -36,9 +37,11 @@ class DeviceLogController extends AdminController
             $grid->created_at('上传日期');
             //$grid->updated_at('更新日期');
             //工具栏
+            $grid->disableCreateButton();
             $grid->filter(function($filter){
                 // 展开过滤器
-                $filter->expand();
+                $filter->panel();
+                //$filter->expand();
                 // 在这里添加字段过滤器
                 $filter->equal('device_id', '设备ID');
                 $filter->between('created_at','上传日期')->datetime();
@@ -46,7 +49,7 @@ class DeviceLogController extends AdminController
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->disableDelete();
+                //$actions->disableDelete();
                 $actions->disableEdit();
                 $actions->disableQuickEdit();
                 $actions->disableView();
